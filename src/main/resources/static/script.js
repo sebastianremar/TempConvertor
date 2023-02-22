@@ -1,8 +1,8 @@
-document.getElementsByName("temp")[0].addEventListener('keypress', () => {
+document.getElementsByName("temp")[0].addEventListener('keyup', () => {
 
     // Getting values with QuerySelector
     const leftTemp = document.getElementById('leftValue').value;
-    const rightTemp = document.getElementById('rightValue').value;
+    const rightTemp = Number(document.getElementById('rightValue').value);
 
     // Getting temperature units
     const leftUnit = document.getElementById("tempLeft");
@@ -12,13 +12,27 @@ document.getElementsByName("temp")[0].addEventListener('keypress', () => {
     const rightUnit = document.getElementById("tempRight");
     const rightText = rightUnit.options[rightUnit.selectedIndex].text;
 
+    // CASO #1 INPUT ESTA VACIO
+    if (!leftTemp) {
+    //  Asumamos que estamos en un estado en el que el usuario tiene en blanco el input
+        document.getElementById("rightValue").value = "";
+        return;
+    }
+
+    const leftTempNumber = Number(leftTemp);
+
+    // CASO #2 El input es una letra
+    if (isNaN(leftTempNumber)) {
+        console.log("Input es una letra")
+        document.getElementById("rightValue").value = "";
+        return;
+    }
+
    const data = {
         value : leftTemp,
         currentUnit : leftText,
         unitToChange : rightText
    }
-
-    console.log(data);
 
     $.ajax('tmp', {
         type: "POST",
