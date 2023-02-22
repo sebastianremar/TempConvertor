@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1><br>Temperature Converter</h1>
+        <div class="converter-row">
+            <div class="col">
+                <select name="tempLeft" id="tempLeft">
+                    <option selected value="1">Celcius</option>
+                    <option value="2">Farenheit</option>
+                    <option value="3">Kelvin</option>
+                </select>
+                <input name="temp" type="number" id="leftValue" value="32"><br>
+                <span id="resultContainerOne"></span>
+            </div>
+            <div class="col">
+                <h1>=</h1>
+            </div>
+            <div class="col">
+                <select name="tempRight" id="tempRight">
+                    <option value="1">Celcius</option>
+                    <option selected value="2">Farenheit</option>
+                    <option value="3">Kelvin</option>
+                </select>
+                <input name="temp" type="number" id="rightValue" value="0"> <br>
+                <span id="resultContainerTwo"></span>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
