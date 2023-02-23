@@ -15,12 +15,12 @@ const handleInputChange = () => {
     const rightUnitText = rightElementId.options[rightElementId.selectedIndex].text;
 
     // CASO #1 INPUT ESTA VACIO
-    if (!leftTemp && event.target === leftInput) {
+    if (leftTemp == null && event.target === leftInput) {
         //  Asumamos que estamos en un estado en el que el usuario tiene en blanco el input
         document.getElementById("idRightInput").value = "";
         return;
     }
-    if (!rightTemp && event.target === rightInput) {
+    if (rightTemp == null && event.target === rightInput) {
         document.getElementById("idLeftInput").value = "";
         return;
     }
