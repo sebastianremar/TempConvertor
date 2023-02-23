@@ -31,4 +31,7 @@ public interface TempConversion {
      * @return
      */
     public double KToF(double currentTemp);
+
+    public double sameUnit(double currentTemp);
+
 }

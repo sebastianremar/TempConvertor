@@ -33,4 +33,9 @@ public class TempHandler implements TempConversion {
     public double KToF(double currentTemp) {
         return (currentTemp - 273.15) * 9/5 + 32;
     }
+
+    @Override
+    public double sameUnit(double currentTemp) {
+        return currentTemp;
+    }
 }
