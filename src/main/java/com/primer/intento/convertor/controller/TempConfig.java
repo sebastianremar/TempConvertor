@@ -28,34 +28,42 @@ public class TempConfig {
         double tempToChange = Double.parseDouble(request.getValue());
         double result = 0;
 
-        if (request.getCurrentUnit().startsWith("C")) {
-            if (request.getUnitToChange().startsWith("F")) {
-                result = tempHandler.CToF(tempToChange);
-            } else {
-                result = tempHandler.CToK(tempToChange);
-            }
-        }
-
-        if (request.getCurrentUnit().startsWith("F")) {
-            if (request.getUnitToChange().startsWith("C")) {
-                result = tempHandler.FToC(tempToChange);
-            } else {
-                result = tempHandler.FToK(tempToChange);
-            }
-        }
-
-        if (request.getCurrentUnit().startsWith("K")) {
-            if (request.getUnitToChange().startsWith("C")) {
-                result = tempHandler.KToC(tempToChange);
-            } else {
-                result = tempHandler.KToF(tempToChange);
-            }
-        }
-
         if (request.getCurrentUnit().equals(request.getUnitToChange())) {
             result = tempHandler.sameUnit(tempToChange);
+        } else {
+            switch (request.getCurrentUnit()) {
+                case "Celsius":
+                    switch (request.getUnitToChange()) {
+                        case "Fahrenheit":
+                            result = tempHandler.CToF(tempToChange);
+                            break;
+                        case "Kelvin":
+                            result = tempHandler.CToK(tempToChange);
+                            break;
+                    }
+                    break;
+                case "Fahrenheit":
+                    switch (request.getUnitToChange()) {
+                        case "Celsius":
+                            result = tempHandler.FToC(tempToChange);
+                            break;
+                        case "Kelvin":
+                            result = tempHandler.FToK(tempToChange);
+                            break;
+                    }
+                    break;
+                case "Kelvin":
+                    switch (request.getUnitToChange()) {
+                        case "Celsius":
+                            result = tempHandler.KToC(tempToChange);
+                            break;
+                        case "Fahrenheit":
+                            result = tempHandler.KToF(tempToChange);
+                            break;
+                    }
+                    break;
+            }
         }
-
 //        Rounding to decimals and casting to String
         temp = String.valueOf(decimalFormat.format(result));
 
