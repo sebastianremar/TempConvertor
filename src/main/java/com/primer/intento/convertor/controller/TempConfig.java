@@ -7,12 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DecimalFormat;
+
 @RestController
 public class TempConfig {
     @Autowired
     TempHandler tempHandler;
     private String temp;
     private String unit;
+
+    private static final DecimalFormat decimalFormat = new DecimalFormat("0.0");
 
     @PostMapping(value = "/tmp",
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -22,30 +26,39 @@ public class TempConfig {
         tempHandler = new TempHandler();
 
         double tempToChange = Double.parseDouble(request.getValue());
+        double result = 0;
 
         if (request.getCurrentUnit().startsWith("C")) {
             if (request.getUnitToChange().startsWith("F")) {
-                temp = String.valueOf(tempHandler.CToF(tempToChange));
+                result = tempHandler.CToF(tempToChange);
             } else {
-                temp = String.valueOf(tempHandler.CToK(tempToChange));
+                result = tempHandler.CToK(tempToChange);
             }
         }
 
         if (request.getCurrentUnit().startsWith("F")) {
             if (request.getUnitToChange().startsWith("C")) {
-                temp = String.valueOf(tempHandler.FToC(tempToChange));
+                result = tempHandler.FToC(tempToChange);
             } else {
-                temp = String.valueOf(tempHandler.FToK(tempToChange));
+                result = tempHandler.FToK(tempToChange);
             }
         }
 
         if (request.getCurrentUnit().startsWith("K")) {
             if (request.getUnitToChange().startsWith("C")) {
-                temp = String.valueOf(tempHandler.KToC(tempToChange));
+                result = tempHandler.KToC(tempToChange);
             } else {
-                temp = String.valueOf(tempHandler.KToF(tempToChange));
+                result = tempHandler.KToF(tempToChange);
             }
         }
+
+        if (request.getCurrentUnit().equals(request.getUnitToChange())) {
+            result = tempHandler.sameUnit(tempToChange);
+        }
+
+//        Rounding to decimals and casting to String
+        temp = String.valueOf(decimalFormat.format(result));
+
         return Response.builder()
                 .temp(temp)
                 .tempUnit(request.getUnitToChange())
